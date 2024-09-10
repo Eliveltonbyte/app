@@ -1,4 +1,4 @@
-const { select, input } = require('@inquirer/prompts')
+const { select, input, checkbox } = require('@inquirer/prompts')
 
 let metas = []
 
@@ -12,6 +12,30 @@ async function cadastrarMetas(){
     }
 
     metas.push({value: meta, checked : false})
+}
+
+const listarMetas = async () => {
+
+    const respostas = await checkbox(
+        {
+           message: "Use as setas para mudar de meta, espaço para selecionar e o enter confirmar",
+           choices: [...metas] 
+        }
+    ) 
+
+    if (respostas.length == 0){
+        console.log("Nenhuma opção selecionada")
+        return
+    }
+
+    respostas.forEach((resposta) =>{
+        const meta = metas.find((m) =>{
+            return m.value == resposta
+        })
+
+        meta.checked = true
+    })
+
 }
 
 const start = async () => {
@@ -43,6 +67,7 @@ const start = async () => {
              console.log(metas)
                 break
             case "listar":
+                await listarMetas()
                 console.log("Vamos listar")
                 break
             case "sair":
