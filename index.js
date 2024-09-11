@@ -1,5 +1,6 @@
 const { select, input, checkbox } = require('@inquirer/prompts')
 
+
 let metas = []
 
 async function cadastrarMetas(){
@@ -28,14 +29,18 @@ const listarMetas = async () => {
         return
     }
 
-    respostas.forEach((resposta) =>{
-        const meta = metas.find((m) =>{
-            return m.value == resposta
-        })
-
-        meta.checked = true
+    metas.forEach((m) => {
+        m.checked = false
     })
 
+    respostas.forEach((resposta) => {
+        const meta = metas.find((m) => {
+        return m.value == resposta
+        })
+        meta.checked = true
+       
+    })
+    
 }
 
 const start = async () => {
@@ -64,11 +69,11 @@ const start = async () => {
         switch (opcao) {
             case "cadastrar":
              await cadastrarMetas()
-             console.log(metas)
                 break
             case "listar":
-                await listarMetas()
-                console.log("Vamos listar")
+               await listarMetas()
+                break
+              //  await listarMetas()
                 break
             case "sair":
                 return
