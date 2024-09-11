@@ -19,7 +19,8 @@ const listarMetas = async () => {
     const respostas = await checkbox(
         {
            message: "Use as setas para mudar de meta, espaço para selecionar e o enter confirmar",
-           choices: [...metas] 
+           choices: [...metas],
+          
         }
     ) 
 
